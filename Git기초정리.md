@@ -4,7 +4,7 @@
 
 폴더를 생성한 후 마우스 우측클릭 후 여기에서 GIT BATH실행을 눌러서 GIT BATH를 실행한다.
 
-<img src="C:\Users\tjdgh\AppData\Roaming\Typora\typora-user-images\image-20210927144837482.png" alt="image-20210927144837482" style="zoom:80%;" />
+
 
 ## 2. Git 환경설정
 
@@ -33,7 +33,7 @@ secret/
 *.csv
 ```
 
-- 
+
 
 ## 3. Git Init 및 파일 생성
 
@@ -225,6 +225,21 @@ $ git clone [URL]
 ```
 
 - Git 저장소 URL을 입력하면 그 저장소 전체를 대상 폴더에 복제
+
+
+
+# 파일 임시저장
+
+> 커밋을 할 때는 완성되었을 때 하는것이 좋은데 작업이 중단되었을 때 커밋을 할 수는 없으므로 임시저장공간에 저장해놔야 함
+
+``` bash
+$ git stash					 # 임시 저장소에 저장	
+$ git stash save [save_name] # 변경점에 이름을 부여
+$ git stash apply [save_name]# 특정 이름의stash 불러와서 적용
+$ git stash pop 			 # 가장 최근의 stash 가져옴
+$ git stash drop			 # 가장 최근의 stash 삭제
+$ git stash drop [save_name] # 특정 이름의 stash 삭제
+```
 
 
 
