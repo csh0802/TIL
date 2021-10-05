@@ -6,6 +6,7 @@
 
 
 
+<<<<<<< HEAD
 ## 2. Git 환경설정
 
 ### Config
@@ -36,6 +37,9 @@ secret/
 
 
 ## 3. Git Init 및 파일 생성
+=======
+## 2. Git Init
+>>>>>>> parent of de9e9ff (복습 및 정리)
 
 git init 명령어 입력을 통해 git repository를 생성 후 ls -al 명령어를 입력한다.
 
@@ -45,6 +49,10 @@ Initialized empty Git repository in
 c:/users/tjdgh/OneDrive/바탕화면/tt/.git/
 $ ls _al
 ```
+
+
+
+## 3. 파일 생성
 
 commit 및 버전관리 실습을 수행하고자 a.txt파일을 생성 한다.
 
@@ -139,9 +147,7 @@ $ git log --oneline # 간략하게
 $ git log --oneline -2 # 최근 2개를 간략하게
 ```
 
-
-
-# 원격저장소와 통신
+## 7. git push
 
 ### 원격저장소 등록
 
@@ -177,45 +183,13 @@ error: src refspec master does not match any
 error: failed to push some refs to 'https://github.com/username/test.git'
 ```
 
-### 원격저장소 `pull`
-
-> 원격저장소와 Working Directory의 파일이 다른 상태에서 push를 하면 오류가 발생, 이를 해결하기 위해 pull 사용
-
-```bash
-$ git pull origin master
-remote: Enumerating objects: 4, done.
-remote: Counting objects: 100% (4/4), done.
-remote: Compressing objects: 100% (3/3), done.
-remote: Total 3 (delta 1), reused 0 (delta 0), pack-reused 0
-Unpacking objects: 100% (3/3), 2.04 KiB | 208.00 KiB/s, done.
-From https://github.com/edutak/0928
- * branch            master     -> FETCH_HEAD
-   2a71213..c143740  master     -> origin/master
-hint: Waiting for your editor to close the fiMerge made by the 'recursive' strategy.
- 22.md | 159 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 159 insertions(+)
- create mode 100644 22.md
-```
-
-- 커밋 메시지(merge)가 발생
-
-```bash
-$ git log --oneline
-9f0d621 (HEAD -> master) Merge branch 'master' of https://github.com/edutak/0928
-772310c Add d.txt
-c143740 (origin/master) Add files via upload
-2a71213 Update
-
-```
-
-- 충돌 발생시 해결이 필요
-
 ### 원격저장소 목록
 
 ```bash
 $ git remote -v
 ```
 
+<<<<<<< HEAD
 ### 원격저장소 복제
 
 > git 저장소를 복제
@@ -699,5 +673,7 @@ $ git revert d547a8a
 
 
 
+=======
+>>>>>>> parent of de9e9ff (복습 및 정리)
 
 
