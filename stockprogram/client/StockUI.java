@@ -7,7 +7,9 @@ import java.net.*;
 import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import test1.stock.vo.Member;
+import test1.stock.vo.MyProtocol;
 
 public class StockUI extends javax.swing.JFrame {
     Socket s;
@@ -21,7 +23,8 @@ public class StockUI extends javax.swing.JFrame {
         
         initComponents();
         
-       
+       ClientThread t = new ClientThread();
+       t.start();
     }
 
  
@@ -229,14 +232,25 @@ public class StockUI extends javax.swing.JFrame {
             String name = jTextField2.getText();
             String addr = jTextField3.getText();
             Member m = new Member(id,name,addr);
-            out.writeObject(m);
+            MyProtocol protocol = new MyProtocol(MyProtocol.signMsg[0],m,null);
+            out.writeObject(protocol);
         } catch (IOException ex) {
             Logger.getLogger(StockUI.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       
+         //검색 버튼 처리
+         String id = JOptionPane.showInputDialog("ID를 입력하세요.");
+         if(id==null || id.equals("")){
+             
+          }
+        try {
+            MyProtocol protocol = new MyProtocol(MyProtocol.signMsg[1],id,null);
+            out.writeObject(protocol);    //StockServer의 ServerThread안 readObject()로 들어감
+        } catch (IOException ex) {
+            Logger.getLogger(StockUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
@@ -278,6 +292,30 @@ public class StockUI extends javax.swing.JFrame {
                 }
             }
         });
+    }
+    
+    class ClientThread extends Thread{
+         
+        @Override
+        public void run() {
+            while(true){
+                try {
+                    Object o = in.readObject();
+                    if(o instanceof String){
+                        JOptionPane.showMessageDialog(null,o.toString());
+                    }else if(o instanceof Member){
+                        Member m = (Member)o;
+                        jTextField1.setText(m.getId());
+                        jTextField2.setText(m.getName());
+                        jTextField3.setText(m.getAddr());
+                    }
+                } catch (IOException ex) {
+                    Logger.getLogger(StockUI.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(StockUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
