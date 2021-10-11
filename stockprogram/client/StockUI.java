@@ -106,9 +106,19 @@ public class StockUI extends javax.swing.JFrame {
 
         jButton3.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
         jButton3.setText("수정");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
         jButton4.setText("삭제");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
         jLabel3.setText("회원ID");
@@ -256,6 +266,40 @@ public class StockUI extends javax.swing.JFrame {
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // 수정 버튼 처리
+        String id = jTextField1.getText();
+        String name = jTextField2.getText();
+        String addr = jTextField3.getText();
+        int i = JOptionPane.showConfirmDialog(null, "ID:"+id+"\nNAME:"+name+"\nADDRESS:"+addr+"\n으로 수정하시겠습니까?");
+        JOptionPane.showMessageDialog(null, "수정되었습니다");
+        switch(i){  //숫자값 비교할 때 switch문이 훨씬 효율 좋음
+            
+            case 0:
+                Member m = new Member(id,name,addr);
+                MyProtocol p = new MyProtocol(MyProtocol.signMsg[2], m, null);    //UPDATE_MEMBER 
+            try {
+                out.writeObject(p);
+            } catch (IOException ex) {
+                Logger.getLogger(StockUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // 삭제 버튼 처리
+        String id = JOptionPane.showInputDialog("ID를 입력하세요.");
+         if(id==null || id.equals("")){             
+          }
+        try {
+            MyProtocol protocol = new MyProtocol(MyProtocol.signMsg[3],id,null);    //DELETE_MEMBER
+            out.writeObject(protocol);    //StockServer의 ServerThread안 readObject()로 들어감
+        } catch (IOException ex) {
+            Logger.getLogger(StockUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton4ActionPerformed
 
   
     public static void main(String args[]) {

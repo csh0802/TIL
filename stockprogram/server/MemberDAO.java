@@ -60,19 +60,45 @@ public class MemberDAO {
         
     
     }
-    public void updateMember() throws Exception{
-        //1. 등록
-        Class.forName("org.mariadb.jdbc.Driber");
-        
+    public void updateMember(Member vo) throws Exception{
+        //1. 드라이버 등록
+        Class.forName("org.mariadb.jdbc.Driver");
+
         //2. 연결
-        Connection con = DriverManager.getConnection("jdbc:mariadb://localhost:3306/testDB","root","1234");
-        
-        //3. statement 생성
-        PreparedStatement stmt = con.prepareStatement(
-        "update member set ?=? where ?=?");
-        
+        Connection con = DriverManager.getConnection("jdbc:mariadb://localhost:3306/testDB", "root", "1234");
+     
+        //3. Statement 생성 - 택배회사 역할
+        PreparedStatement stmt2 = con.prepareStatement("update member set name=?, addr=? where id=?");
+        stmt2.setString(1, vo.getName()); 
+        stmt2.setString(2, vo.getAddr());
+        stmt2.setString(3, vo.getId());
+
+        //4. SQL 전송
+        int i = stmt2.executeUpdate(); 
+        System.out.println(i + "행이 update 되었습니다.");
+
+        //6. 자원 종료
+        stmt2.close();
+        con.close();
+
     }
-    public void deleteMember(){
-        
+    public void deleteMember(String id) throws Exception{
+        //1. 드라이버 등록
+        Class.forName("org.mariadb.jdbc.Driver");
+
+        //2. 연결
+        Connection con = DriverManager.getConnection("jdbc:mariadb://localhost:3306/testDB", "root", "1234");
+     
+        //3. Statement 생성 - 택배회사 역할
+        PreparedStatement stmt2 = con.prepareStatement("delete from member where id=?");
+        stmt2.setString(1, id);      
+
+        //4. SQL 전송
+        int i = stmt2.executeUpdate(); 
+        System.out.println(i + "행이 delete 되었습니다.");
+
+        //6. 자원 종료
+        stmt2.close();
+        con.close();
     }
 }
