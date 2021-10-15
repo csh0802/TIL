@@ -49,9 +49,10 @@ public class MemberDAO {
         
         //5. 결과 받기
         if(rs.next()){
+            int memberNo=rs.getInt("no");
             String name = rs.getString("name");
             String addr = rs.getString("addr");
-            Member m = new Member(id,name,addr);
+            Member m = new Member(memberNo,id,name,addr);
             return m;
         }
         return null;

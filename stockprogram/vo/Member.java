@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class Member implements Serializable{
     private String id, name, addr;
+    private int no;
 
     public Member() {
     }
@@ -12,6 +13,19 @@ public class Member implements Serializable{
         setId(id);
         setName(name);
         setAddr(addr);      
+    }
+
+    public Member(int no,String id, String name, String addr) {
+        this(id,name,addr);
+        setNo(no);
+    }
+
+    public int getNo() {
+        return no;
+    }
+
+    public void setNo(int no) {
+        this.no = no;
     }
 
     public String getId() {
